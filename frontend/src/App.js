@@ -10,7 +10,7 @@ import NewInvoice from './component/dashboard/NewInvoice';
 import Setting from './component/dashboard/Setting';
 import InvoiceDetail from './component/dashboard/InvoiceDetail';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import React from 'react';
+import React from 'react'
 
 function App() {
   const myRouter = createBrowserRouter([
