@@ -4,18 +4,33 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Invoice = require('../models/Invoice'); // Import the Invoice model
 const auth = require('../middleware/auth');
+const { storage } = require('../config/firebase');
+const { ref, uploadBytes, getDownloadURL } = require('firebase/storage');
+const multer = require('multer');
+
+
 
 const router = express.Router();
+const upload = multer({ storage: multer.memoryStorage() }); // Store files in memory
 
 // Register a user
-router.post('/register', express.json(), async (req, res) => {
-  const { username, email, password, photoUrl } = req.body;
+router.post('/register', upload.single('photo'), express.json(), async (req, res) => {
+  const { username, email, password } = req.body;
+  const photo = req.file;
+
   try {
     console.log(req);
     // Check if user already exists
     let user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ msg: 'User already exists' });
+    }
+    // Upload the image to Firebase Storage
+    let photoUrl = '';
+    if (photo) {
+        const storageRef = ref(storage, `users/${Date.now()}_${photo.originalname}`);
+        await uploadBytes(storageRef, photo.buffer); 
+        photoUrl = await getDownloadURL(storageRef);
     }
 
     // Create new user
@@ -31,7 +46,7 @@ router.post('/register', express.json(), async (req, res) => {
     const payload = { user: { id: user.id } };
     jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
       if (err) throw err;
-      res.json({ token });
+      res.json({ token,photoUrl});
     });
   } catch (err) {
     console.error(err.message);

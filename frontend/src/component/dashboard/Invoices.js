@@ -16,12 +16,6 @@ const Invoices = () => {
   const getData = async () => {
     setLoading(true);  // Correct function call to set loading state
     try {
-      // const q = query(collection(db, "invoices"), where("uid", "==", localStorage.getItem("uid")));
-      // const querySnapshot = await getDocs(q);
-      // const data = querySnapshot.docs.map((doc) => ({
-      //   id: doc.id,
-      //   ...doc.data(),
-      // }));
       const creator = localStorage.getItem("email");
       const response = await axios.get('http://localhost:5000/api/invoices',{
         headers: {

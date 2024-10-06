@@ -7,11 +7,14 @@ const getExpenseSummary = async (req, res) => {
     const today = new Date();
     const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 
+    const { creator } = req.query;
+
     // Calculate the total number of invoices
-    const totalInvoices = await Invoice.countDocuments();
+    const totalInvoices = await Invoice.countDocuments({ creator });
 
     // Calculate the overall expense (sum of all product prices * quantity)
     const overallExpense = await Invoice.aggregate([
+      { $match: { creator } }, // Filter invoices by creator
       { $unwind: "$products" },
       {
         $group: {
@@ -25,7 +28,7 @@ const getExpenseSummary = async (req, res) => {
     const monthlyExpense = await Invoice.aggregate([
       {
         $match: {
-          // Assuming there's a 'createdAt' field in invoices
+          creator, // Filter invoices by creator
           createdAt: { $gte: startOfMonth, $lte: today },
         },
       },
@@ -43,6 +46,7 @@ const getExpenseSummary = async (req, res) => {
     const monthlyExpenses = await Invoice.aggregate([
       {
         $match: {
+          creator, // Filter invoices by creator
           createdAt: {
             $gte: new Date(today.getFullYear(), 0, 1), // Start of the year
             $lte: today,

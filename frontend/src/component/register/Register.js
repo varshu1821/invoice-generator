@@ -28,49 +28,33 @@
             e.preventDefault();
             setLoading(true);
             try {
-                // const newUser = await createUserWithEmailAndPassword(auth, email, password);
-
-                const date = new Date().getTime();
-                const storageRef = ref(storage, `${displayName + date}`);
-
-                // Upload the file (logo) to Firebase Storage
-                await uploadBytes(storageRef, file);
-                const downloadedUrl = await getDownloadURL(storageRef);
-                console.log(downloadedUrl);
-                // Update the user's profile with displayName and photoURL
-                // await updateProfile(newUser.user, {
-                //     displayName: displayName,
-                //     photoURL: downloadedUrl
-                // });
+    
+                // Create a new FormData object
+             const formData = new FormData();
+                formData.append('username', displayName);
+                formData.append('email', email);
+                formData.append('password', password);
+                formData.append('photo', file); // Append the file here
 
                 //call register api
-                const response = await axios.post('http://localhost:5000/api/auth/register', {
-                    username: displayName,
-                    email,
-                    password,
-                    photoUrl: downloadedUrl, // Include the Firebase Storage URL
+                const response = await axios.post('http://localhost:5000/api/auth/register',formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data', // Important for file uploads
+                    }
                 });
 
-                // Store user data in Firestore
-                // await setDoc(doc(db, "users", newUser.user.uid), {
-                //     uid: newUser.user.uid,
-                //     displayName: displayName,
-                //     email: email,
-                //     photoURL: downloadedUrl
-                // });
 
                 // Navigate to the dashboard after successful registration
                 navigate('/dashboard');
 
                 // Store user details in local storage
                 localStorage.setItem('cName', displayName);
-                localStorage.setItem('photoURL', downloadedUrl);
+                localStorage.setItem('photoURL', response.data.photoUrl);
                 localStorage.setItem('email', email);
                 localStorage.setItem('loggedIn', true);
 
                  // Store user details and JWT token from the backend
-            const { token } = response.data;
-            localStorage.setItem('token', token);
+            localStorage.setItem('token', response.data.token);
 
             } catch (error) {
                 console.error("Error registering user:", error);

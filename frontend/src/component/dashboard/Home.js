@@ -23,10 +23,13 @@ const Home = () => {
 
   const getData = async () => {
     try {
+      const creator = localStorage.getItem("email");
       const response = await axios.get('http://localhost:5000/api/expense-summary', {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("token")}`,
         },
+        params: { creator },
+
       });
 
       setOverallExpenses(response.data.overallExpense);
@@ -38,23 +41,20 @@ const Home = () => {
       console.log("error:", error);
     }
 
-    try {
-      const creator = localStorage.getItem("email");
-      const response = await axios.get('http://localhost:5000/api/invoices', {
-        headers: {
-          "Authorization": `Bearer ${localStorage.getItem("token")}`,
-        },
-        params: { creator },
-      });
-      monthWiseCollection(response.data);
-    } catch (error) {
-      console.log("Error fetching invoices:", error);
-    }
+  //   try {
+  //     const creator = localStorage.getItem("email");
+  //     const response = await axios.get('http://localhost:5000/api/invoices', {
+  //       headers: {
+  //         "Authorization": `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //       params: { creator },
+  //     });
+  //     monthWiseCollection(response.data);
+  //   } catch (error) {
+  //     console.log("Error fetching invoices:", error);
+  //   }
   };
 
-  const monthWiseCollection = (data) => {
-    // ... your existing logic for handling invoices
-  };
 
   const createChart = (monthlyExpensesData) => {
     const ctx = document.getElementById("myChart").getContext("2d");
