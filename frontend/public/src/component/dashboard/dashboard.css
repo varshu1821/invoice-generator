@@ -1,0 +1,344 @@
+.dashboard-wrapper{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+.side-nav{
+    width: 20%;
+    background-color: #282c34;
+}
+
+.main-container{
+    width: 80%;
+    background-color: #eee;
+    padding: 10px;
+}
+
+.profile-info{
+    display: flex;
+    padding: 10px;
+    align-items: center;
+}
+.profile-info img{
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.profile-info p{
+    margin-left: 10px;
+    color: white;
+    padding: 10px ;
+}
+
+.menu{
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+
+}
+.menu-link{
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px;
+}
+.menu-link:hover{
+    background-color: blue;
+}
+
+.new-invoice-heading{
+    font-size: 20px;
+    color: rgb(18, 18, 18);
+}
+
+.first-row{
+    display: flex;
+    gap: 2%;
+    margin-top: 10px;
+}
+
+.first-row input{
+    padding: 7px;
+    width: 30%;
+    border: 1px solid #878282;
+}
+
+.add-btn{
+    padding: 7px;
+    font-size: 15px;
+    border: none;
+    background-color: blue;
+    color: white;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.product-wrapper{
+    width: 100%;
+    padding: 5px;
+    background-color: white;
+    margin-top: 10px;
+    min-height: 300px;
+
+}
+
+.product-list{
+    display: flex;
+    gap: 50px;
+}
+
+.product-list p{
+    text-align: left;
+    width: 20%;
+}
+
+.total-wrapper{
+    margin-top: 80px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 2px dotted rgba(124, 125, 121, 0.621);
+    padding: 10px;
+}
+
+.total-wrapper p {
+     width: 20%;
+     color: rgb(99, 21, 9);
+     font-weight: bold;
+     font-size: 20px;
+}
+
+.header-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-row button{
+    background-color: rgb(242, 10, 22);
+}
+
+.box{
+    display: flex;
+    gap: 20px;
+    background-color: white;
+    margin-top: 10px;
+    padding: 20px;
+}
+
+.box p{
+    width: 20%;
+    text-transform: capitalize;
+}
+
+.delete-btn{
+    padding: 5px;
+    background-color: rgb(241, 34, 34);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.view-btn{
+    background-color: blue;
+}
+
+.invoice-wrapper{
+    width: 50%;
+    background-color: white;
+    min-height: 90vh;
+    margin: auto;
+    padding: 20px;
+}
+
+.invoice-header{
+    display: flex;
+    justify-content: space-between; 
+    /*background-color: red;*/
+
+}
+
+.company-logo{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    box-shadow: 1px 1px 10px #333;
+    margin-bottom: 10px;
+}
+
+.customer-detail h1{
+    color: blue;
+    margin-bottom: 10px;
+}
+
+.cName{
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    font-size: 20px;
+}
+.product-table{
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th{
+    background-color: royalblue;
+    color: white;
+}
+
+th,td{
+    border: 1px solid #333;
+    padding: 10px;
+    text-align: left;
+}
+
+tfoot{
+    background-color: royalblue;
+    color: white;
+}
+.print-btn{
+    border: none;
+    background-color: rgb(204, 71, 9);
+    color: white;
+    padding: 10px;
+}
+
+.invoice-top-header{
+    display: flex;
+    justify-content:flex-end;
+}
+
+.setting-wrapper{
+    width: 50%;
+    min-height: 300px;
+    margin: auto;
+    background-color: white;
+    margin-top: 50px;
+}
+
+.update-cName{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.update-cName input{
+    width: 80%;
+    padding: 10px;
+    justify-content: center;
+}
+
+.update-cName button{
+    width: 80%;
+    padding: 10px;
+    border: none;
+    background-color: blue;
+    color: white;
+}
+
+.home-first-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.home-box{
+    width: 32%;
+    height:27vh;
+    /*background-color: red;*/
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+.box-1{
+    background: linear-gradient(to right, #2c3e50, #bdc3c7); 
+}
+
+.box-2 {
+    background: linear-gradient(to right, #34495e, #f39c12); 
+}
+
+.box-3 {
+    background: linear-gradient(to right, #1c2833, #16a085); 
+}
+
+.home-second-row{
+    display: flex;
+    margin-top: 50px;
+    justify-content:space-between;
+}
+
+.chart-box{
+    width: 60%;
+    height: 60vh;
+    background-color: white ;
+    border-radius: 10px;
+}
+
+.recent-invoice-list{
+    width: 35%;
+    background-color: white;    
+}
+
+.box-header{
+    color: white;
+}
+
+.box-title{
+    color: yellow;
+}
+
+.recent-invoice-list h1{
+    font-size: 18px;
+    text-align: center;
+    padding: 20px;
+    background-color: rgb(10, 101, 229);
+    color: white;
+}
+
+.recent-invoice-list div{
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.recent-invoice-list div:hover{
+    background-color: #eee;
+}
+
+.recent-invoice-list p{
+    width: 50%;
+    padding: 10px;
+}
+
+.no-invoice-wrapper{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.no-invoice-wrapper p{
+    font-size: 18px;
+}
+
+.no-invoice-wrapper button {
+    border: none;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+}

@@ -1,0 +1,75 @@
+.login-wrapper{
+    height: 100vh;
+    width: 100%;
+    background-color: #282c34;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.login-container{
+    height:600px;
+    width: 60%;
+    background-color: #eee;
+    box-shadow: 5px 5px 10px #eee;
+    display: flex;
+}
+
+.login-boxes{
+    height: 600px;
+    width: 50%;
+   /* background-color: red;*/
+   padding: 20px;
+}
+
+.login-left{
+    background-image: url('../../assets/cal.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.login-right{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-heading{
+    font-size: 25px;
+    text-align: center;
+}
+
+.login-input{
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border-width: 1px;
+}
+
+.login-btn{
+    border: none;
+    background-color: black;
+    color: white;
+    font-size: 15px;
+}
+
+.login-btn:hover{
+    transition: 0.5s;
+    background-color: blue;
+    cursor: pointer;
+}
+
+.register-link{
+    font-size: 20px;
+    margin-top: 15px;
+    text-decoration: none;
+}
+
+.image-preview{
+    height: 100px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
