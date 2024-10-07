@@ -46,7 +46,7 @@ router.post('/register', upload.single('photo'), express.json(), async (req, res
     const payload = { user: { id: user.id } };
     jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
       if (err) throw err;
-      res.json({ token,photoUrl});
+      res.json({ token,photoUrl,userId: user.id});
     });
   } catch (err) {
     console.error(err.message);
@@ -86,36 +86,60 @@ router.post('/login', express.json(), async (req, res) => {
 router.get('/dashboard', auth, (req, res) => {
   res.json({ msg: 'Welcome to the dashboard!' });
 });
-
-// Update username by user ID
-router.put('/users/:id', auth, async (req, res) => {
+// Update username and photo by user ID
+router.put('/users/:id', auth, upload.single('photo'), async (req, res) => {
   const { username } = req.body;
+  const photo = req.file;
 
   // Check if username is provided
-  if (!username) {
-    return res.status(400).json({ message: 'Username is required' });
+ if (!username) {
+   return res.status(400).json({ message: 'Username is required' });
   }
 
   try {
-    // Find user by ID and update username
-    const updatedUser = await User.findByIdAndUpdate(
-      req.params.id,
-      { username },
-      { new: true, runValidators: true } // runValidators ensures that validation rules are applied
-    );
-
-    // If the user is not found, return a 404 error
-    if (!updatedUser) {
+    // Find the user by ID
+    let user = await User.findById(req.params.id);
+    if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
+    // Update the username if provided
+    if (username) {
+      user.username = username;
+    }
+
+    // Handle photo upload if a new photo is provided
+    if (photo) {
+      const { ref, deleteObject } = require('firebase/storage'); // Import deleteObject for Firebase
+      const storageRef = ref(storage, `users/${Date.now()}_${photo.originalname}`);
+
+      // Check if the user already has a photoUrl
+      if (user.photoUrl) {
+        // Extract the file path from the old photoUrl to delete it from Firebase Storage
+        const oldFileRef = ref(storage, decodeURIComponent(user.photoUrl.split('/').pop().split('?')[0]));
+
+        // Delete the old photo from Firebase Storage
+        await deleteObject(oldFileRef).catch((error) => {
+          console.error('Failed to delete old photo:', error.message);
+        });
+      }
+
+      // Upload the new photo to Firebase Storage
+      await uploadBytes(storageRef, photo.buffer); // Upload the new image to Firebase Storage
+      user.photoUrl = await getDownloadURL(storageRef); // Update the user's photoUrl with the new image
+    }
+
+    // Save the updated user details (username and photo)
+    await user.save();
+
     // Return the updated user details
-    res.json(updatedUser);
+    res.json({ username: user.username, photoUrl: user.photoUrl });
   } catch (error) {
     // Handle errors (e.g., validation errors)
     res.status(500).json({ message: error.message });
   }
 });
+
 
 
 // Delete a user by ID

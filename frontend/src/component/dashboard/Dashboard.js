@@ -23,12 +23,16 @@ const Dashboard = () => {
     <div className="dashboard-wrapper">
       <div className="side-nav">
         <div className="profile-info">
-          <img src={localStorage.getItem("photoURL")} />
-          <div>
-            <p>{localStorage.getItem("cName")}</p>
-           <button onClick={logout}>logout</button>
+          <img
+            src={localStorage.getItem("photoURL")}
+            alt="Profile"
+            className="profile-photo"
+          />
+          <div className="profile-details">
+            <p className="profile-name">{localStorage.getItem("cName")}</p>
           </div>
         </div>
+
         <hr />
         <div className="menu">
           <Link to="/dashboard/home" className="menu-link">
@@ -45,6 +49,10 @@ const Dashboard = () => {
           </Link>
         </div>
 
+
+        <button onClick={logout} className="logout-btn">
+          <i className="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
       </div>
       <div className="main-container">
         <Outlet />

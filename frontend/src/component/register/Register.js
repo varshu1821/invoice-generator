@@ -52,6 +52,7 @@
                 localStorage.setItem('photoURL', response.data.photoUrl);
                 localStorage.setItem('email', email);
                 localStorage.setItem('loggedIn', true);
+                localStorage.setItem('userId',response.data.userId)
 
                  // Store user details and JWT token from the backend
             localStorage.setItem('token', response.data.token);
@@ -107,6 +108,7 @@
                                 onClick={() => fileInputRef.current.click()}
                             />
                             {imageUrl != null && <img className='image-preview' src={imageUrl} alt='preview' />}
+                            
                             <button className='login-input login-btn' type='submit'>
                                 {isLoading ? <i className="fa-solid fa-spinner fa-spin-pulse"></i> : 'Submit'}
                             </button>

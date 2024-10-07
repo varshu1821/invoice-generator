@@ -14,24 +14,32 @@
     background-color: #eee;
     padding: 10px;
 }
-
-.profile-info{
+.profile-info {
     display: flex;
     padding: 10px;
-    align-items: center;
-}
-.profile-info img{
-    height: 80px;
-    width: 80px;
-    border-radius: 50%;
-    margin-right: 10px;
+    align-items: center; /* Aligns items vertically centered */
 }
 
-.profile-info p{
-    margin-left: 10px;
-    color: white;
-    padding: 10px ;
+.profile-info img {
+    height: 80px; /* Height of the profile photo */
+    width: 80px;  /* Width of the profile photo */
+    border-radius: 50%; /* Makes the image circular */
+    margin-right: 10px; /* Space between image and text */
 }
+
+.profile-details {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+}
+
+.profile-name {
+    margin: 0; /* Remove default margin */
+    color: white; /* Text color */
+    font-size: 1.5rem; /* Font size for company name */
+    font-weight: bold; /* Bold text */
+    padding: 5px; /* Add some padding for aesthetics */
+}
+
 
 .menu{
     margin-top: 20px;
@@ -342,3 +350,25 @@ tfoot{
     color: white;
     cursor: pointer;
 }
+.logout-btn {
+    margin-top: 10px;
+    background-color: #f39c12;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .logout-btn i {
+    margin-right: 8px; /* Space between the icon and text */
+  }
+  
+  .logout-btn:hover {
+    background-color: orangered; /* Change to red on hover */
+  }
+  
+  

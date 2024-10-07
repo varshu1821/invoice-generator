@@ -37,16 +37,23 @@ const Invoices = () => {
   const deleteInvoice = async (id) => {
     const isSure = window.confirm("Are you sure you want to delete?");
     if (isSure) {
-      try {
-        await deleteDoc(doc(db, "invoices", id));
-        getData();  // Refresh the list after deletion
-      } catch (error) {
-        window.alert("Something went wrong");
-        console.error("Error deleting invoice: ", error);
-      }
-    }
-  };
+        try {
+          console.log(id)
+            // Make a DELETE request to your server
+            await axios.delete(`http://localhost:5000/api/invoices/${id}`, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`, // Include the authorization token
+                },
+            });
 
+            // Refresh the list after deletion
+            getData();
+        } catch (error) {
+            window.alert("Something went wrong");
+            console.error("Error deleting invoice: ", error);
+        }
+    }
+};
   return (
     <div>
       {isLoading ? (
@@ -62,7 +69,7 @@ const Invoices = () => {
                 <p>{new Date(data.createdAt).toLocaleDateString()}</p>
                 <p>Phone: {data.phone}</p>
                 <p>Total: {data.total}</p>
-                <button onClick={() => deleteInvoice(data.id)} className="delete-btn">
+                <button onClick={() => deleteInvoice(data._id)} className="delete-btn">
                   <i className="fa-solid fa-trash"></i> Delete
                 </button>
                 <button onClick={() => navigate("/dashboard/invoice-detail", { state: data })} className="view-btn">

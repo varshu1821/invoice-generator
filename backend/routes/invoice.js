@@ -59,6 +59,36 @@ router.get('/invoices', auth, async (req, res) => {
     }
 });
 
+// Get the latest 8 invoices (GET method)
+router.get('/invoices', auth, async (req, res) => {
+  try {
+      const { creator } = req.query;
+      let invoices;
+
+      if (creator) {
+          invoices = await Invoice.find({ creator: creator }).sort({ createdAt: -1 }).limit(8);
+      } else {
+          invoices = await Invoice.find().sort({ createdAt: -1 }).limit(8);  // Sort by createdAt and limit to 8
+      }
+
+      const invoicesWithTotal = invoices.map(invoice => {
+          const total = invoice.products.reduce(
+            (acc, product) => acc + product.price * product.quantity,
+            0
+          );
+    
+          return {
+            ...invoice.toObject(),
+            total,  // Include total in the response
+          };
+      });
+
+      res.status(200).json(invoicesWithTotal);
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+});
+
 // Get a specific invoice by ID (GET method)
 router.get('/invoices/:id', auth, async (req, res) => {
     try {
